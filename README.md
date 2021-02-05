@@ -10,7 +10,7 @@
 ### 结果展示
 ![weibo.gif](https://csgduanzhou-pic.oss-cn-shenzhen.aliyuncs.com/my_self/weibo.gif?versionId=CAEQHBiBgIDEraXGuxciIDA1ZTNjY2Y2ZDY0ZTQ5NWJhYWVmODkxNzAwY2U1OWVm)
 
-具体详情可以查看我CSDN博文
+具体详情可以查看我[CSDN博文](https://blog.csdn.net/qq_42909714/article/details/
 
 #### 版本说明：
   - mysql可以使用5.0或以上版本
