@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>微博热搜实时平台</title>
+    <!-- 引入 echarts.js和jqery.js -->
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style type="text/css">
+      .bg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div  class="bg">
+    <div id="main" style="width: 1200px; height: 850px"></div>
+    </div>
+    <script type="text/javascript">
+      // 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById("main"));
+
+      // 指定图表的配置项和数据
+      option = {
+        dataset: {
+          source: [
+            ["score", "热度", "titleName"],
+            [89.3, 58212, "Matcha Latte"],
+            [57.1, 78254, "Milk Tea"],
+            [74.4, 41032, "Cheese Cocoa"],
+            [50.1, 12755, "Cheese Brownie"],
+            [89.7, 20145, "Matcha Cocoa"],
+            [68.1, 79146, "Tea"],
+          ],
+        },
+        title: {
+          text: "微博实时热搜平台",
+        },
+        grid: { containLabel: true },
+        xAxis: { name: "热度" },
+        yAxis: { type: "category", inverse: true },
+        visualMap: {
+          orient: "horizontal",
+          left: "center",
+          min: 10,
+          max: 100,
+          text: ["High Score", "Low Score"],
+          // Map the score column to color
+          dimension: 0,
+          inRange: {
+            color: ["#65B581", "#FFCE34", "#FD665F"],
+          },
+        },
+        series: [
+          {
+            type: "bar",
+            encode: {
+              // Map the "amount" column to X axis.
+              x: "热度",
+              // Map the "product" column to Y axis
+              y: "titleName",
+            },
+          },
+        ],
+      };
+
+      function changeData() {
+
+        //url需要配置成自己网址
+        let url = "http://localhost:8012/crawlServer.php";
+
+        $.get(url, {}, function (data, status) {
+          console.log(data, status);
+          if (status == "success") {
+            option.dataset.source = data;
+          }
+        });
+
+        myChart.setOption(option);
+      }
+
+      setInterval("changeData()", 3000);
+    </script>
+  </body>
+</html>
